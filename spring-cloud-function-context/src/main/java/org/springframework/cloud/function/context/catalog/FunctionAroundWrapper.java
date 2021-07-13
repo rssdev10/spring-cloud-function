@@ -34,17 +34,16 @@ import org.springframework.messaging.Message;
  */
 public abstract class FunctionAroundWrapper implements BiFunction<Object, FunctionInvocationWrapper, Object> {
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public final Object apply(Object input, FunctionInvocationWrapper targetFunction) {
 		if (input instanceof Message) {
-			return this.doApply((Message<byte[]>) input, targetFunction);
+			return this.doApply(input, targetFunction);
 		}
-		else if (targetFunction.isSupplier() && !targetFunction.isOutputTypePublisher()) {
+		else if (targetFunction.isSupplier()) {
 			return this.doApply(null, targetFunction);
 		}
 		return targetFunction.apply(input);
 	}
 
-	protected abstract Object doApply(Message<byte[]> input, FunctionInvocationWrapper targetFunction);
+	protected abstract Object doApply(Object input, FunctionInvocationWrapper targetFunction);
 }

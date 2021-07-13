@@ -76,9 +76,9 @@ public class MarcinSleuthTests {
 			return new FunctionAroundWrapper() {
 
 				@Override
-				protected Object doApply(Message<byte[]> input,
+				protected Object doApply(Object input,
 						FunctionInvocationWrapper targetFunction) {
-					return targetFunction.apply(MessageBuilder.fromMessage(input).setHeader("his-name", "marcin").build());
+					return targetFunction.apply(MessageBuilder.fromMessage((Message<?>) input).setHeader("his-name", "marcin").build());
 				}
 			};
 		}

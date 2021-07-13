@@ -875,9 +875,9 @@ public class BeanFactoryAwareFunctionRegistryTests {
 
 				@SuppressWarnings("unchecked")
 				@Override
-				protected Object doApply(Message<byte[]> input, FunctionInvocationWrapper targetFunction) {
-					MessageBuilder.fromMessage(input).setHeader("before", "foo").build();
-					Message<Object> result = (Message<Object>) targetFunction.apply(MessageBuilder.fromMessage(input).setHeader("before", "foo").build());
+				protected Object doApply(Object input, FunctionInvocationWrapper targetFunction) {
+					MessageBuilder.fromMessage((Message<?>) input).setHeader("before", "foo").build();
+					Message<Object> result = (Message<Object>) targetFunction.apply(MessageBuilder.fromMessage((Message<?>) input).setHeader("before", "foo").build());
 					return MessageBuilder.fromMessage(result).setHeader("after", "bar").build();
 				}
 			};
